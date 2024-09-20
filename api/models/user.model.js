@@ -1,6 +1,6 @@
 import mongoose  from "mongoose"; 
 import { Schema } from "mongoose";
-import { type } from "os";
+
 
 const userSchema = new Schema({ 
     username:{
