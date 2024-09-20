@@ -18,6 +18,17 @@ mongoose.connect(process.env.MONGO).then(()=>{console.log('connected mongoDb')})
 app.use('/api/user', userRouter)
 app.use('/api/auth',authrouter )
 
+
+app.use((err, req,res,next)=>{
+    const statuscode =err.statuscode || 500
+    const message =  err .message || "Interal server error"
+    return res.status(statuscode).json({
+        success:false,
+        statuscode,
+        message
+    })
+})
+
 app.listen(PORT ,()=>{
     console.log('server is running on 3000')
 })
