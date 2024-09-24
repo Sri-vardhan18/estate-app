@@ -10,7 +10,12 @@ const app = express()
 app.use(express.json())
 
 const PORT =3000 
-mongoose.connect(process.env.MONGO).then(()=>{console.log('connected mongoDb')})
+mongoose.connect(process.env.MONGO,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000
+
+}).then(()=>{console.log('connected mongoDb')})
 .catch((error)=>{
     console.log("error", error)
 }) 

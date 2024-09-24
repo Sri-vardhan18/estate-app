@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInStart,signInSuccess,signInfailure  } from '../../Redux/user/userSlice'
+import OAuth from '../component/OAuth'
 
 function SignIn() {  
   const dispatch = useDispatch()
@@ -34,13 +35,13 @@ function SignIn() {
     )
     const data = await res.json()  
     console.log("data", data, data.success) 
-    if(data){
-      dispatch(signInSuccess(data))
-      navigate('/')
-    }
-    else{
+    if(data.success===false){
       dispatch(signInfailure(data.message))
       return
+    }
+    else{
+      dispatch(signInSuccess(data))
+      navigate('/')
     }
     }
     catch(error){
@@ -70,6 +71,7 @@ function SignIn() {
         disabled={loading}>
           {loading ? 'Loading...': 'signin' }
         </button>
+        <OAuth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>Dont have a account ?</p>
