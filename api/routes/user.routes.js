@@ -6,6 +6,7 @@ const userRouter = express.Router();
 
 userRouter.get('/test',test)  
 userRouter.post('/update/:id', verifyToken, updateUser) 
-userRouter.delete('/delete/:id', verifyToken, DeleteUser) 
+userRouter.delete('/delete/:id', verifyToken, DeleteUser)  
+
 
 export default userRouter
