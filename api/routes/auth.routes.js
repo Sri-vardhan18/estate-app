@@ -5,7 +5,7 @@ import { signIn, signup, google } from '../controlllers/auth.controller.js'
 
 authrouter.post('/signup',signup) 
 authrouter.post('/signin',signIn) 
-authrouter.post('/google',google )
+authrouter.post('/google',google)
 
 
 export default authrouter
