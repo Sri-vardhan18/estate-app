@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import userRouter from './routes/user.routes.js' 
 import authrouter from './routes/auth.routes.js'
 import cookieParser from 'cookie-parser'
-
+import { listingrouter } from './routes/listing.routes.js'
 
 dotenv.config()
 
@@ -25,6 +25,7 @@ mongoose.connect(process.env.MONGO,{
 
 app.use('/api/user', userRouter)
 app.use('/api/auth',authrouter )
+app.use('/api/listing', listingrouter)
 
 
 app.use((err, req,res,next)=>{
