@@ -8,10 +8,13 @@ import {
 } from 'firebase/storage';
 import { app } from '../firebase';  
 import { useDispatch } from 'react-redux';
-import { updateUserStart, updateUserfailure,updateUserSuccess } from '../../Redux/user/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { updateUserStart, updateUserfailure,updateUserSuccess, DeleteUserfailure, DeleteUserStart, DeleteUserSuccess } from '../../Redux/user/userSlice';
+
 export default function Profile() { 
 
-  const dispatch= useDispatch()
+  const dispatch= useDispatch() 
+  const navigate =useNavigate()
   const fileRef = useRef(null);
   const { currentuser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -78,6 +81,25 @@ export default function Profile() {
     }
 
 
+  } 
+
+  const handleDelete=async()=>{
+    try {
+      dispatch(DeleteUserStart())
+      const res = await fetch(`/api/user/delete/${currentuser._id}`,
+        {method:'DELETE'}
+      ) 
+      const data = await res.json() 
+      if(data.success===false){
+        dispatch(DeleteUserfailure(data.message)) 
+        return
+      } 
+      dispatch(DeleteUserSuccess(data))
+      navigate('/sign-in')
+    }
+    catch(error){
+      dispatch(DeleteUserfailure(error.message))
+    }
   }
 
   const handleChange=(e)=>{
@@ -142,10 +164,10 @@ export default function Profile() {
         </button>
       </form>
       <div className='flex justify-between mt-5'>
-        <span className='text-red-700 cursor-pointer'>Delete account</span>
+        <span className='text-red-700 cursor-pointer' onClick={handleDelete}>Delete account</span>
         <span className='text-red-700 cursor-pointer'>Sign out</span>
       </div> 
-      <p className='text-red-700 cursor-pointer'>{error ? error:''}</p>
+      {/* <p className='text-red-700 cursor-pointer'>{error ? error:''}</p> */}
     </div>
   );
 }
