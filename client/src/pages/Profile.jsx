@@ -173,7 +173,18 @@ export default function Profile() {
     } catch (error) {
       console.log(error, 'error');
     }
-  };
+  }; 
+
+  const handleListingEdit=async(id)=>{
+    fetch(`api/listing/update/${id}`,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(formData)
+    })
+    
+  }
   
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -271,7 +282,10 @@ export default function Profile() {
   
               <div className='flex flex-col item-center'>
                 <button onClick={()=>handleListingDelete(listing._id)} className='text-red-700 uppercase'>Delete</button>
-                <button className='text-green-700 uppercase'>Edit</button>
+                <Link to={`/update-listing/${listing._id}`}>
+                
+                <button  onClick={()=>handleListingEdit(listing._id)} className='text-green-700 uppercase'>Edit</button>
+              </Link>
               </div>
             </div>
           ))}
