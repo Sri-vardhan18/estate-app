@@ -278,13 +278,15 @@ console.log("params", params.id)
                 type="number"
                 id="regularPrice"
                 min="1"
-                max="10"
+                max="1000000"
                 required
                 className="p-3 border border-gray-300 rounded-lg"
               />
               <div className="flex flex-col items-center">
                 <p>Regular price</p>
-                <span className="text-xs">($ / month)</span>
+                {formData.type === 'rent' && (
+                  <span className='text-xs'>($ / month)</span>
+                )}
               </div>
             </div>
             {formData.offer && ( 
@@ -300,8 +302,11 @@ console.log("params", params.id)
                 className="p-3 border border-gray-300 rounded-lg"
               />
               <div className="flex flex-col items-center">
-                <p>Discounted price</p>
-                <span className="text-xs">($ / month)</span>
+                <p>Discounted price</p> 
+                {formData.type === 'rent' && (
+                  <span className='text-xs'>($ / month)</span>
+                )}
+               
               </div>
             </div>
 
