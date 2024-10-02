@@ -50,7 +50,7 @@ export const DeleteUser=async(req,res,next)=>{
 }
 
 export const getUserListing=async(req,res, next)=>{
-    console.log(req.params.id, req.user.id, "hello")
+    
     if(req.user.id===req.params.id){
         try{
             const listing= await Listing.find({userRef:req.params.id})
@@ -61,6 +61,11 @@ export const getUserListing=async(req,res, next)=>{
         }
     }
     else{
+        const error = new Error()
+        error.message ="check user id"
+        error.statuscode =403
         next(error)
+
+
     }
 }
